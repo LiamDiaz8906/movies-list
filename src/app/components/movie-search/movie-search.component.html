@@ -1,0 +1,43 @@
+<div class="p-4">
+  <div class="flex items-center mb-4">
+    <input
+      type="text"
+      [(ngModel)]="query"
+      placeholder="Buscar película"
+      class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+    <button
+      (click)="searchMovies()"
+      class="ml-2 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+      Buscar
+    </button>
+  </div>
+
+
+  @for (movie of movieService.searchResults(); track movie.imdbID) {
+  <div class="flex justify-between mb-4 p-4 bg-white rounded-lg shadow-md">
+    <div>
+      <h3 class="text-lg font-bold"> {{movie.Title}} </h3>
+      <div class="mt-2 flex space-x-2">
+        <button
+          (click)="showDetails(movie.imdbID)"
+          class="p-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
+          Ver detalles
+        </button>
+
+        <button
+          (click)="addToFavorites(movie)"
+          class="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+          Agregar a favoritos
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <img [src]="movie.Poster" alt="" class="h-[100px]">
+    </div>
+  </div>
+  }
+
+  <app-movie-detail [movie]="movieService.selectedMovie()" />
+</div>
